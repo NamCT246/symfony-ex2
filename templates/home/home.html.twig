@@ -5,4 +5,7 @@
         <div id="map"></div>
 
         <script src="{{ asset('build/js/map.js') }}"></script>
+        <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaA3gybURsl7iwQf4hR6PenuyhdtxIFo&callback=initMap"></script>
     {% endblock %}
+
+    {% block interactions %}{% endblock %}
