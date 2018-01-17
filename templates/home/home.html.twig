@@ -1,7 +1,8 @@
-<h1>
-    {{ welcome }}
-</h1>
+{% extends 'base.html.twig' %}
+{% block body_id 'main' %}
 
-{% block javascript %}
-    <script src="{{ asset('build/js/app.js') }}"></script>
-{% endblock %}
+    {% block map %}
+        <div id="map"></div>
+
+        <script src="{{ asset('build/js/map.js') }}"></script>
+    {% endblock %}
