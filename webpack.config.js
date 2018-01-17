@@ -11,7 +11,6 @@ Encore
   // .enableVersioning(Encore.isProduction())
 
   .addEntry("js/app", "./assets/js/app.js")
-  .addEntry("js/map", "./assets/js/map.js")
   .addStyleEntry("css/app", "./assets/css/app.css")
   .autoProvidejQuery();
 
