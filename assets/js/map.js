@@ -84,6 +84,8 @@ function addSearchBox(map) {
     }
 
     // Clear out the old markers.
+
+    /** so markers array will only have 1 elememt ever? */
     markers.forEach(function(marker) {
       marker.setMap(null);
     });
@@ -104,6 +106,7 @@ function addSearchBox(map) {
           anchor: new google.maps.Point(17, 34),
           scaledSize: new google.maps.Size(25, 25)
         },
+        markerInfo = new google.maps.InfoWindow(),
         lat = place.geometry.location.lat(),
         lng = place.geometry.location.lng();
 
@@ -116,6 +119,14 @@ function addSearchBox(map) {
           position: place.geometry.location
         })
       );
+
+      markers.forEach(function(marker) {
+        marker.addListener("click", function() {
+          infoWindow.setPosition(marker.position);
+          infoWindow.setContent("lat: " + lat + ", lng: " + lng);
+          infoWindow.open(map, this);
+        });
+      });
 
       ui.main.send({
         lat: lat,
@@ -135,3 +146,8 @@ function addSearchBox(map) {
 }
 
 window.initMap = initMap;
+
+/**
+ * todo: break the marker, icon, infowindow codes to
+ * new function to increase readability
+ */
