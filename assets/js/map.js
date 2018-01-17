@@ -12,10 +12,8 @@ var ui = require("./ui.js");
 function initMap() {
   console.log(google.maps);
 
-  var uluru = { lat: -25.363, lng: 131.044 };
   var map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
-    center: uluru
+    zoom: 10
   });
 
   addSearchBox(map);
@@ -98,13 +96,16 @@ function addSearchBox(map) {
         console.log("Returned place contains no geometry");
         return;
       }
+
       var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        },
+        lat = place.geometry.location.lat(),
+        lng = place.geometry.location.lng();
 
       // Create a marker for each place.
       markers.push(
@@ -117,8 +118,8 @@ function addSearchBox(map) {
       );
 
       ui.main.send({
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng()
+        lat: lat,
+        lng: lng
       });
 
       if (place.geometry.viewport) {
@@ -128,6 +129,7 @@ function addSearchBox(map) {
         bounds.extend(place.geometry.location);
       }
     });
+
     map.fitBounds(bounds);
   });
 }
