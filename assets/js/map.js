@@ -110,11 +110,13 @@ function addSearchBox(map) {
         lat = place.geometry.location.lat(),
         lng = place.geometry.location.lng();
 
+      console.log(window._mIcon);
+
       // Create a marker for each place.
       markers.push(
         new google.maps.Marker({
           map: map,
-          icon: icon,
+          icon: window._mIcon || icon,
           title: place.name,
           position: place.geometry.location
         })

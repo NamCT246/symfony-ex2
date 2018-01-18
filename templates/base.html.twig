@@ -8,6 +8,7 @@
         </title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         {% endblock %}
         {% block javascripts %}
             <script src="{{ asset('build/js/app.js') }}"></script>
@@ -15,5 +16,6 @@
     </head>
     <body>
         {% block map %}{% endblock %}
+        {% block marker %}{% endblock %}
     </body>
 </html>

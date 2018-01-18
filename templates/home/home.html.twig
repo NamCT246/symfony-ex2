@@ -5,7 +5,23 @@
         <input id="pac-input" class="controls" type="text" placeholder="Search Box">
         <div id="map"></div>
         <h4 id="info"></h4>
-        <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaA3gybURsl7iwQf4hR6PenuyhdtxIFo&callback=initMap&libraries=places" "></script>
+        <hr/>
     {% endblock %}
 
-    {% block interactions %}{% endblock %}
+    {% block marker %}
+        <div id="marker">
+            <h3>This is example for phase 1.c: basic change icon</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="marker-type">Choose marker icon</label>
+                </div>
+                <select class="custom-select" id="marker-type">
+                    <option value="Parking">Parking</option>
+                    <option value="Library">Library</option>
+                    <option value="Info">Info</option>
+                </select>
+                <button id="changeMarker" class="btn btn-primary">Change marker icon</button>
+            </div>
+        </div>
+        <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaA3gybURsl7iwQf4hR6PenuyhdtxIFo&callback=initMap&libraries=places" "></script>
+    {% endblock %}

@@ -9,6 +9,17 @@ body {
   height: 400px;
 }
 
+#marker {
+  margin: 20px;
+  padding: 20px;
+}
+
+#marker select {
+  margin: 20px;
+  font-size: 20px;
+  padding: 6px;
+}
+
 .controls {
   margin-top: 10px;
   border: 1px solid transparent;
