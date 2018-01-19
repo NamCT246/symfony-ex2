@@ -16,6 +16,10 @@ function initMap() {
     zoom: 10
   });
 
+  map.addListener("click", function(event) {
+    addMarker(event.latLng, map);
+  });
+
   addSearchBox(map);
 
   infoWindow = new google.maps.InfoWindow();
@@ -53,6 +57,31 @@ function initMap() {
   }
 }
 
+function addMarker(location, map) {
+  var marker = new google.maps.Marker({
+      position: location,
+      map: map,
+      icon: window._markerIcon || window._defaultMarker
+    }),
+    lat = marker.position.lat(),
+    lng = marker.position.lng();
+
+  markers.push(marker);
+
+  markers.forEach(function(marker) {
+    marker.addListener("click", function() {
+      infoWindow.setPosition(marker.position);
+      infoWindow.setContent("lat: " + lat + ", lng: " + lng);
+      infoWindow.open(map, this);
+    });
+  });
+
+  ui.main.send({
+    lat: lat,
+    lng: lng
+  });
+}
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(
@@ -73,7 +102,6 @@ function addSearchBox(map) {
     searchBox.setBounds(map.getBounds());
   });
 
-  var markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener("places_changed", function() {
@@ -83,14 +111,6 @@ function addSearchBox(map) {
       return;
     }
 
-    // Clear out the old markers.
-
-    /** so markers array will only have 1 elememt ever? */
-    markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
-    markers = [];
-
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
     places.forEach(function(place) {
@@ -99,39 +119,8 @@ function addSearchBox(map) {
         return;
       }
 
-      var icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        },
-        markerInfo = new google.maps.InfoWindow(),
-        lat = place.geometry.location.lat(),
-        lng = place.geometry.location.lng();
-
       // Create a marker for each place.
-      markers.push(
-        new google.maps.Marker({
-          map: map,
-          icon: window._markerIcon || icon,
-          title: place.name,
-          position: place.geometry.location
-        })
-      );
-
-      markers.forEach(function(marker) {
-        marker.addListener("click", function() {
-          infoWindow.setPosition(marker.position);
-          infoWindow.setContent("lat: " + lat + ", lng: " + lng);
-          infoWindow.open(map, this);
-        });
-      });
-
-      ui.main.send({
-        lat: lat,
-        lng: lng
-      });
+      addMarker(place.geometry.location, map);
 
       if (place.geometry.viewport) {
         // Only geocodes have viewport.

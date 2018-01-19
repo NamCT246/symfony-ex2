@@ -4,8 +4,6 @@ import "./map.js";
 import "./request.js";
 
 (function(window) {
-  window._colorDefault = "red";
-
-  // for fast development let's put as undefined
-  // window._markerIcon = "A";
+  window.markers = [];
+  window._defaultMarker = require("../img/ggmMarker/red_MarkerA.png");
 })(window);
