@@ -17,8 +17,12 @@ main.send = function(data) {
 
 $(function() {
   $("#changeMarker").on("click", function() {
-    var requestMarker = $("#marker-type").val();
-    request.req.send(requestMarker);
+    var markerLabel = $("#marker-label")
+        .val()
+        .toUpperCase(),
+      markerColor = $("#marker-color").val();
+
+    request.req.send({ icon: markerLabel, color: markerColor });
   });
 });
 

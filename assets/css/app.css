@@ -9,12 +9,13 @@ body {
   height: 400px;
 }
 
-#marker {
+#marker-type,
+#marker-color {
   margin: 20px;
   padding: 20px;
 }
 
-#marker select {
+#marker-type select {
   margin: 20px;
   font-size: 20px;
   padding: 6px;

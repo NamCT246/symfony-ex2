@@ -1,9 +1,16 @@
 var req = {};
 
+// prettier-ignore
 req.send = function(data) {
-  $.post("/marker/default", JSON.stringify({ icon: data })).done(function(res) {
+  $.post(
+    "/marker",
+    JSON.stringify({
+      icon: data.icon,
+      color: data.color.toLowerCase()
+    })
+  ).done(function(res) {
     console.log(res);
-    window._mIcon = res;
+    window._markerIcon = require("../img/ggmMarker/" + res);
   });
 };
 

@@ -6,22 +6,26 @@
         <div id="map"></div>
         <h4 id="info"></h4>
         <hr/>
+        <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaA3gybURsl7iwQf4hR6PenuyhdtxIFo&callback=initMap&libraries=places"></script>
     {% endblock %}
 
     {% block marker %}
-        <div id="marker">
-            <h3>This is example for phase 1.c: basic change icon</h3>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="marker-type">Choose marker icon</label>
-                </div>
-                <select class="custom-select" id="marker-type">
-                    <option value="Parking">Parking</option>
-                    <option value="Library">Library</option>
-                    <option value="Info">Info</option>
+        <div class="row">
+            <div id="marker-type" class="col-md-6">
+                <h3>This is example for phase 1.c: change icon type</h3>
+                <input id="marker-label" type="text" class="form-control" maxlength="1" pattern="[A-Za-z]" title="Must be a letter" placeholder="Enter a letter" required="required"/>
+                <select class="custom-select" id="marker-color">
+                    <option value="Red" selected="selected">Red</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Purple">Purple</option>
+                    <option value="Pink">Pink</option>
+                    <option value="Yellow">Yellow</option>
                 </select>
+
                 <button id="changeMarker" class="btn btn-primary">Change marker icon</button>
             </div>
         </div>
-        <script async="async" defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFaA3gybURsl7iwQf4hR6PenuyhdtxIFo&callback=initMap&libraries=places" "></script>
     {% endblock %}

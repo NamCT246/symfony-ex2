@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Map;
+use App\Entity\Marker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,30 +23,31 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/marker/default", name="marker_default")
+     * @Route("/marker", name="marker")
      */
 
-    public function changeMarkerType(Request $req)
+    public function changeMarker(Request $req, LoggerInterface $logger)
     {
-        $iconBase = "https://maps.google.com/mapfiles/kml/shapes/";
-        $icons = array(
-            "Parking"=> $iconBase."parking_lot_maps.png",
-            "Library"=> $iconBase."library_maps.png",
-            "Info"=>$iconBase."info-i_maps.png"
-        );
-        $requested_icon = json_decode($req->getContent(), true);
-        $selected_icon;
+        $iconBase = $this->get('kernel')->getProjectDir() . '/assets/img/ggmMarker/';
+        $iconsName = scandir($iconBase);
 
-        foreach ($icons as $key => $icon) {
-            if ($requested_icon["icon"] === $key) {
-                $res = new Response($icon);
-                $selected_icon = $key;
-                return $res;
-            }
+        $r_icon = json_decode($req->getContent(), true);
+
+        // iconName = blue_MarkerA.png for exp
+        $selected_icon = array_filter(
+            $iconsName,
+            function ($iconName, $key) use ($r_icon) {
+                return((strpos($iconName, $r_icon["icon"]) !== false) && (strpos($iconName, $r_icon["color"]) !== false));
+            },
+            ARRAY_FILTER_USE_BOTH
+        );
+
+        /* the returned key from selected icon is hard to deal with
+         so we have to do this dirty solution */
+        foreach ($selected_icon as $value) {
+            $icon_url = $value;
         }
 
-        return $this->render('home', [
-            'marker'=> '$selected_icon'
-        ]);
+        return new Response($icon_url);
     }
 }
