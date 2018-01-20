@@ -28,7 +28,11 @@ class MainController extends Controller
      */
     public function home()
     {
-        return $this->render('home/Home.html.twig');
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser()->getUsername();
+        return $this->render('home/Home.html.twig', array(
+            'user' => $user
+        ));
     }
 
     /**
