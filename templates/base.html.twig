@@ -15,6 +15,36 @@
         {% endblock %}
     </head>
     <body>
+        {% block header %}
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Symfony Ex2</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href=" {{ path('home') }} ">Home</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href=" {{ path('register') }} ">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Sign Up</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href=" {{ path('login') }} ">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        {% endblock %}
+        {% block signup %}{% endblock %}
+        {% block login %}{% endblock %}
         {% block map %}{% endblock %}
         {% block marker %}{% endblock %}
         {% block distance %}{% endblock %}

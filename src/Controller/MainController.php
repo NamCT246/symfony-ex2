@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Marker;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,15 +13,22 @@ todo: remove logger in production */
 
 class MainController extends Controller
 {
+
     /**
-     * @Route("/", name="home")
-     */
+     * @Route("/", name="index")
+    */
+
     public function index()
     {
-        $welcome = "Hello World";
-        return $this->render('home/home.html.twig', [
-          'welcome'=> $welcome
-       ]);
+        return $this->redirectToRoute('login');
+    }
+
+    /**
+     * @Route("/home", name="home")
+     */
+    public function home()
+    {
+        return $this->render('home/Home.html.twig');
     }
 
     /**
