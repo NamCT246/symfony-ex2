@@ -8,6 +8,7 @@
  */
 
 var ui = require("./ui.js");
+var request = require("./request.js");
 
 function initMap() {
   console.log(google.maps);
@@ -59,27 +60,79 @@ function initMap() {
 
 function addMarker(location, map) {
   var marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      icon: window._markerIcon || window._defaultMarker
-    }),
-    lat = marker.position.lat(),
-    lng = marker.position.lng();
+    position: location,
+    map: map,
+    icon: window._markerIcon || window._defaultMarker
+  });
+  (marker.lat = marker.position.lat()), (marker.lng = marker.position.lng());
 
-  markers.push(marker);
+  var req_marker = {
+    lat: marker.lat,
+    lng: marker.lng,
+    icon: window._markerIcon || window._defaultMarker,
+    content: "lat: " + marker.lat + ", lng: " + marker.lng
+  };
 
-  markers.forEach(function(marker) {
-    marker.addListener("click", function() {
-      infoWindow.setPosition(marker.position);
-      infoWindow.setContent("lat: " + lat + ", lng: " + lng);
-      infoWindow.open(map, this);
-    });
+  request.req.addMarker(req_marker).done(function(response) {
+    marker.id = response.id;
+    markers.push(marker);
+
+    marker.addListener(
+      "click",
+      (function(index) {
+        return function() {
+          markerLClick(index);
+        };
+      })(window.markers.length - 1)
+    );
+
+    marker.addListener(
+      "rightclick",
+      (function(index) {
+        return function() {
+          markerRClick(index);
+        };
+      })(window.markers.length - 1)
+    );
   });
 
   ui.main.send({
-    lat: lat,
-    lng: lng
+    lat: marker.lat,
+    lng: marker.lng
   });
+}
+
+function markerLClick(index) {
+  var marker = markers[index];
+  var infowindow = new google.maps.InfoWindow();
+
+  marker.title
+    ? infowindow.setContent(markers[index].title)
+    : infowindow.setContent("lat: " + marker.lat + ", lng: " + marker.lng);
+
+  infowindow.open(map, marker);
+}
+
+function markerRClick(index) {
+  $("#if-modal").modal("show");
+
+  $(".if-save")
+    .unbind()
+    .click(function(event) {
+      event.stopImmediatePropagation();
+      var content = $(".if-content").val(),
+        data = {
+          id: markers[index].id,
+          lat: markers[index].lat,
+          lng: markers[index].lng,
+          content: content
+        };
+      request.req.saveMarkerContent(data).done(function(resp) {
+        console.log(resp);
+        markers[index].title = resp.content;
+        $("#if-modal").modal("hide");
+      });
+    });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {

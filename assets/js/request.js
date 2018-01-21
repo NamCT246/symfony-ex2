@@ -7,7 +7,7 @@ var req = {};
 // prettier-ignore
 req.changeMarker = function(data) {
   $.post(
-    "/marker",
+    "/marker/type",
     JSON.stringify({
       icon: data.icon,
       color: data.color.toLowerCase()
@@ -33,6 +33,14 @@ req.getDistance = function(data) {
         response.rows[0].elements[0].distance.text
     );
   });
+};
+
+req.addMarker = function(data) {
+  return $.post("/marker/add", JSON.stringify(data));
+};
+
+req.saveMarkerContent = function(data) {
+  return $.post("/marker/content/" + data.id, JSON.stringify(data));
 };
 
 module.exports = {

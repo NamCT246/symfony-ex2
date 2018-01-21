@@ -16,8 +16,6 @@ main.send = function(data) {
 };
 
 $(function() {
-  $("#signup").click(function() {});
-
   $("#changeMarker").on("click", function() {
     var markerLabel = $("#marker-label")
         .val()

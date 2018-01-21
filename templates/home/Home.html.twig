@@ -30,6 +30,25 @@
             <button id="clearMarkers" class="btn btn-danger">Clear all markers</button>
         </div>
     </div>
+    <div class="modal fade" id="if-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change the text</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="if-content">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default if-save">Save</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock %}
 
 {% block distance %}

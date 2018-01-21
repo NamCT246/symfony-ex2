@@ -52,6 +52,32 @@ class User implements UserInterface
     private $email;
 
     /**
+    * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="marker")
+    */
+    private $markers;
+
+    public function __construct()
+    {
+        $this->markers = new ArrayCollection();
+    }
+
+    /**
+     * Get the value of id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return Collection|Markers[]
+     */
+    public function getMarkers()
+    {
+        return $this->markers;
+    }
+
+    /**
      * Set the value of username
      *
      * @return  self

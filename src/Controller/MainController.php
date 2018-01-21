@@ -8,9 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
 
-/* for fast implementation, all functions are created in 1 controller
-todo: remove logger in production */
-
 class MainController extends Controller
 {
 
@@ -33,34 +30,6 @@ class MainController extends Controller
         return $this->render('home/Home.html.twig', array(
             'user' => $user
         ));
-    }
-
-    /**
-     * @Route("/marker", name="marker")
-     */
-    public function changeMarker(Request $req, LoggerInterface $logger)
-    {
-        $iconBase = $this->get('kernel')->getProjectDir() . '/assets/img/ggmMarker/';
-        $iconsName = scandir($iconBase);
-
-        $r_icon = json_decode($req->getContent(), true);
-
-        // iconName = blue_MarkerA.png for exp
-        $selected_icon = array_filter(
-            $iconsName,
-            function ($iconName, $key) use ($r_icon) {
-                return((strpos($iconName, $r_icon["icon"]) !== false) && (strpos($iconName, $r_icon["color"]) !== false));
-            },
-            ARRAY_FILTER_USE_BOTH
-        );
-
-        /* the returned key from selected icon is hard to deal with
-         so using this dirty solution */
-        foreach ($selected_icon as $value) {
-            $icon_url = $value;
-        }
-
-        return new Response($icon_url);
     }
 
     /**
