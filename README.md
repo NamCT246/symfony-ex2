@@ -7,7 +7,8 @@
 ```PHP 
 composer install
 ```
-& ```yarn
+&
+```yarn
 yarn install 
 ```
 
