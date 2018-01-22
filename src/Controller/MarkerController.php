@@ -93,8 +93,15 @@ class MarkerController extends Controller
         $em = $this->getDoctrine()->getManager();
         $marker = $em->getRepository(Marker::class)->find($id);
 
+        if (!$marker) {
+            throw $this->createNotFoundException(
+              'No marker found'
+          );
+        }
+
         $marker->setContent($req_data["content"]);
-        $em->persist($marker);
+
+        // no need to call persist, doctrine watches the object
         $em->flush();
 
         $marker_lng = $marker->getLng();
@@ -112,5 +119,17 @@ class MarkerController extends Controller
         );
         
         return new JsonResponse($response);
+    }
+
+    /**
+    * @Route("/markers/load", name="markers_load")
+    */
+
+    public function loadMarkers(Request $request, LoggerInterface $logger)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $markers = $em->getRepository(Marker::class)->getAllMarkers();
+
+        return new JsonResponse($markers);
     }
 }

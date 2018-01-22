@@ -25,12 +25,12 @@ $(function() {
     request.req.changeMarker({ icon: markerLabel, color: markerColor });
   });
 
-  $("#clearMarkers").click(function() {
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
-    }
-    window.markers = markers = [];
-  });
+  // $("#clearMarkers").click(function() {
+  //   for (var i = 0; i < markers.length; i++) {
+  //     markers[i].setMap(null);
+  //   }
+  //   window.markers = markers = [];
+  // });
 
   $("#getDistance").click(function() {
     var mlength = markers.length;

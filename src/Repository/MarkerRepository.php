@@ -13,6 +13,13 @@ class MarkerRepository extends ServiceEntityRepository
         parent::__construct($registry, Marker::class);
     }
 
+    public function getAllMarkers()
+    {
+        // create new QueryBuilder instance
+        $qb = $this->createQueryBuilder('u');
+        return $qb->getQuery()->getArrayResult();
+    }
+
     
     // public function findByPosition($lat, $lng)
     // {

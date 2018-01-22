@@ -5,5 +5,6 @@ import "./request.js";
 
 (function(window) {
   window.markers = [];
-  window._defaultMarker = require("../img/ggmMarker/red_MarkerA.png");
+  window._defaultMarkerLoader = require("../img/ggmMarker/red_MarkerA.png");
+  window._defaultMarker = "../img/ggmMarker/red_MarkerA.png";
 })(window);

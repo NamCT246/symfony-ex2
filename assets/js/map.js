@@ -25,6 +25,44 @@ function initMap() {
 
   infoWindow = new google.maps.InfoWindow();
 
+  request.req.loadMarkers().done(function(data) {
+    console.log(data);
+    data.forEach(function(marker) {
+      var m_icon = marker.type.split("/");
+
+      var m = new google.maps.Marker({
+        position: new google.maps.LatLng(marker.lat, marker.lng),
+        map: map,
+        title: marker.content,
+        icon: require("../img/ggmMarker/" + m_icon[3])
+      });
+
+      m.id = marker.id;
+      m.lat = marker.lat;
+      m.lng = marker.lng;
+
+      window.markers.push(m);
+
+      m.addListener(
+        "click",
+        (function(index) {
+          return function() {
+            markerLClick(index);
+          };
+        })(window.markers.length - 1)
+      );
+
+      m.addListener(
+        "rightclick",
+        (function(index) {
+          return function() {
+            markerRClick(index);
+          };
+        })(window.markers.length - 1)
+      );
+    });
+  });
+
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -62,7 +100,7 @@ function addMarker(location, map) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
-    icon: window._markerIcon || window._defaultMarker
+    icon: window._markerIconLoaded || window._defaultMarkerLoaded
   });
   (marker.lat = marker.position.lat()), (marker.lng = marker.position.lng());
 

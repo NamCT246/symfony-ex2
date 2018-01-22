@@ -14,7 +14,8 @@ req.changeMarker = function(data) {
     })
   ).done(function(res) {
     console.log(res);
-    window._markerIcon = require("../img/ggmMarker/" + res);
+    window._markerIcon = "../img/ggmMarker/" + res;              
+    window._markerIconLoaded = require("../img/ggmMarker/" + res);              
   });
 };
 
@@ -41,6 +42,10 @@ req.addMarker = function(data) {
 
 req.saveMarkerContent = function(data) {
   return $.post("/marker/content/" + data.id, JSON.stringify(data));
+};
+
+req.loadMarkers = function() {
+  return $.get("/markers/load");
 };
 
 module.exports = {
