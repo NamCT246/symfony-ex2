@@ -49,6 +49,17 @@ $(function() {
       }
     });
   });
+
+  $("#getDirection").click(function() {
+    var origin = $("#origin").val();
+    var destination = $("#destination").val();
+
+    request.req.getDirection({
+      origin: origin,
+      destination: destination,
+      travelMode: "DRIVING"
+    });
+  });
 });
 
 module.exports = {

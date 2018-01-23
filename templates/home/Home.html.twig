@@ -27,6 +27,7 @@
             </select>
 
             <button id="changeMarker" class="btn btn-primary">Change marker icon</button>
+
             {# <button id="clearMarkers" class="btn btn-danger">Clear all markers</button> #}
         </div>
     </div>
@@ -57,6 +58,18 @@
             <h3>This is example for phase 2: get distance between 2 markers</h3>
             <h3 class="distance"></h3>
             <button id="getDistance" class="btn btn-info">Find distance</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block direction %}
+    <div class="row">
+        <div class="col-md-6" id="direction">
+            <h3>This is example for phase 2: get distance between 2 markers</h3>
+            <h3 class="direction"></h3>
+            <input type="text" id="origin" placeholder="Origin">
+            <input type="text" id="destination" placeholder="Destination">
+            <button id="getDirection" class="btn btn-info">Get direction</button>
         </div>
     </div>
 {% endblock %}

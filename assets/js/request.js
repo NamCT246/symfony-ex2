@@ -36,6 +36,12 @@ req.getDistance = function(data) {
   });
 };
 
+req.getDirection = function(data) {
+  $.post("/direction", JSON.stringify(data)).done(function(resp) {
+    console.log(resp);
+  });
+};
+
 req.addMarker = function(data) {
   return $.post("/marker/add", JSON.stringify(data));
 };
