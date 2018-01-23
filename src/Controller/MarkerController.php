@@ -132,4 +132,16 @@ class MarkerController extends Controller
 
         return new JsonResponse($markers);
     }
+
+    /**
+    * @Route("/marker/upload", name="marker_upload")
+    */
+
+    /*
+    public function uploadMarkerImg(Request $request, LoggerInterface $logger)
+    {
+        // how can we get the file data?
+        $this->setImageFile();
+    }
+    */
 }
